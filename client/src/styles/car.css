@@ -1,0 +1,10 @@
+.car{
+    padding: 10px;
+    margin: 4px;
+}
+
+.car:hover{
+    background-color: rgb(104, 105, 88);
+    cursor: pointer;
+    border-radius: 5px;
+}
