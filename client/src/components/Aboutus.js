@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 import "../styles/aboutus.css";
 export const Aboutus = () => {
   return (
     <>
-    <section>
+      {/* <section>
         <h1>Welcome to E-Parking!</h1>
         <p>
           E-Parking is your go-to platform for finding convenient parking spaces.
@@ -25,8 +25,7 @@ export const Aboutus = () => {
           <li>Real-time availability updates</li>
           <li>Secure and reliable payment options</li>
         </ul>
-      </section>
+      </section> */}
     </>
   );
-}
- 
+};

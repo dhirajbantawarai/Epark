@@ -1,16 +1,17 @@
-
-
 .login-page {
   margin: 0 auto;
   margin-top: 50px;
-  width: auto;
+  width: 80%; /* Adjust the width as needed */
+  max-width: 400px; /* Set a maximum width for smaller screens */
   margin-bottom: 10px;
   padding: 20px;
-  height: 700px;
+  height: 450px;
+  border: 2px solid #ccc; /* Border styling */
+  border-radius: 10px; /* Optional: Add border radius for a rounded look */
+  box-sizing: border-box;
 }
 
 .form-group {
-  
   margin-bottom: 15px;
 }
 
@@ -36,6 +37,7 @@ button[type="submit"] {
   border-radius: 3px;
   cursor: pointer;
 }
+
 .forget-password {
   float: right;
   font-size: 15px;
@@ -45,4 +47,11 @@ button[type="submit"] {
 
 .forget-password:hover {
   text-decoration: underline;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  .login-page {
+    width: 90%; /* Adjust the width for smaller screens */
+  }
 }

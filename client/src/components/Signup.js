@@ -1,21 +1,21 @@
-
 import React, { useState } from "react";
-import "../styles/login.css";
+import "../styles/signup.css";
 
-export const Login = () => {
+export const Signup = () => {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Handle login logic here
-    console.log("Username:", username, "Password:", password);
+    // Handle signup logic here
+    console.log("Username:", username, "Email:", email, "Password:", password);
   };
 
   return (
     <>
-      <div className="login-page">
-        <h2>Login</h2>
+      <div className="signup-page">
+        <h2>Signup</h2>
         <br></br>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -28,6 +28,15 @@ export const Login = () => {
             />
           </div>
           <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
             <label htmlFor="password">Password:</label>
             <input
               type="password"
@@ -36,9 +45,9 @@ export const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button type="submit">Login</button>
-          <a href="*" className="forget-password">
-            Forget password?
+          <button type="submit">Signup</button>
+          <a href="/login" className="login-link">
+            Already have an account? Login here.
           </a>
         </form>
       </div>

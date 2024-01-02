@@ -1,10 +1,14 @@
 .contact-page {
   margin: 0 auto;
   margin-top: 50px;
-  width: auto;
-  height: 700px;
+  width: 80%; /* Adjust the width as needed */
+  max-width: 400px; /* Set a maximum width for smaller screens */
+  margin-bottom: 10px;
   padding: 20px;
-  margin-bottom: 15px;
+  height: 450px;
+  border: 2px solid #ccc; /* Border styling */
+  border-radius: 10px; /* Optional: Add border radius for a rounded look */
+  box-sizing: border-box;
 }
 .form-group {
   margin-bottom: 20px;
@@ -32,4 +36,9 @@ button[type="submit"] {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+@media (max-width: 600px) {
+  .contact-page {
+    width: 90%; /* Adjust the width for smaller screens */
+  }
 }
