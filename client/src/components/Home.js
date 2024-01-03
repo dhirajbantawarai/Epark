@@ -11,11 +11,11 @@ export const Home = () => {
             <p>Exclusive offer for new customers with no unwanted fees.</p>
             <div className="buttons">
               <a href="/login">
-                <button>Login</button>
+                <button className="btn">Login</button>
               </a>
 
               <a href="/signup">
-                <button>SignUp</button>
+                <button className="btn">SignUp</button>
               </a>
             </div>
           </div>

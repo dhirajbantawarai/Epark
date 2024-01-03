@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema(
     {
+        _id: mongoose.Schema.Types.ObjectId,
         username:{
             type: String,
             required: true
@@ -19,7 +20,7 @@ const UserSchema = new Schema(
             type: Number,
             required: true
         },
-        Age:{
+        age:{
             type: Number,
             required: true
         }

@@ -14,7 +14,7 @@ export const Navbar = () => {
       <ul>
         <li><a className="active" href="\">Home</a></li>
         <li><a href="/contact">Contact</a></li>
-        <li><a href="/aboutus">About</a></li>
+        <li><button className="logoutbtn">Logout</button></li>
       </ul>
       </div>
     </div>

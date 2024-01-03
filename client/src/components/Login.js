@@ -6,10 +6,40 @@ export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Handle login logic here
-    console.log("Username:", username, "Password:", password);
+      try {
+        const response = await fetch('http://localhost:9000/api/user/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        });
+
+        if (!response.ok) {
+            // Handle non-successful responses (e.g., show an error message)
+            const errorData = await response.json();
+            console.log(response);
+            window.alert('Login failed:'+ errorData.message);
+            // Display error message to the user
+            return;
+        }
+
+        const userData = await response.json();
+        if(userData){
+          window.location.href = 'http://localhost:3000/parking';
+        }else{
+          window.alert('Server error: Try again Later');
+        }
+
+        
+        // Redirect or perform further actions upon successful login
+    } catch (error) {
+        console.error('Error during login:', error.message);
+        // Handle unexpected errors (e.g., show a generic error message)
+    }
   };
 
   return (

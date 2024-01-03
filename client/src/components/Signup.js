@@ -15,6 +15,7 @@ export const Signup = () => {
   return (
     <>
       <div className="signup-page">
+        <div className="signupbox">
         <h2>Signup</h2>
         <br></br>
         <form onSubmit={handleSubmit}>
@@ -50,6 +51,7 @@ export const Signup = () => {
             Already have an account? Login here.
           </a>
         </form>
+        </div>
       </div>
     </>
   );

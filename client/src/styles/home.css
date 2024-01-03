@@ -37,7 +37,7 @@
   line-height: 1.5;
 }
 
-button {
+.btn {
   padding: 1rem 3rem;
   font-size: 1rem;
   border: none;
@@ -47,7 +47,7 @@ button {
   border-radius: 50px;
 }
 
-button:hover {
+.btn:hover {
   background: #fff;
   color: #000;
 }
