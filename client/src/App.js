@@ -9,11 +9,15 @@ import { Footer } from "./components/Footer";
 import { Aboutus } from "./components/Aboutus";
 import { Parking } from "./components/Parking";
 import { Signup } from "./components/Signup";
+import { AppProvider } from "./context/StoreContext";
 function App() {
   return (
     <>
-      <Header />
+
       <Router>
+      
+        <AppProvider>
+        <Header />
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/login" element={<Login />}/>
@@ -23,8 +27,11 @@ function App() {
           <Route path="/aboutus" element={<Aboutus />}/>
           <Route path="/signup" element={<Signup />}/>
         </Routes>
+        <Footer/>
+        </AppProvider>
+        
       </Router>
-      <Footer/>
+
     </> 
   );
 }

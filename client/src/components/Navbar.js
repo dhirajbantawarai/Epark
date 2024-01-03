@@ -1,7 +1,11 @@
 import React from "react";
-// import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/nav.css";
+
+import { useProductContext } from "../context/StoreContext";
 export const Navbar = () => {
+  const { logout } = useProductContext();
+  const navigate = useNavigate(); // Initialize useNavigate
   return (
     <>
     <div className="navbar">
@@ -12,9 +16,21 @@ export const Navbar = () => {
       <div>
 
       <ul>
-        <li><a className="active" href="\">Home</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><button className="logoutbtn">Logout</button></li>
+        <NavLink to="/">
+
+        <li><a>Home</a></li>
+        </NavLink>
+        
+        <NavLink to="/contact">
+
+        <li><a>Contact</a></li>
+        </NavLink>
+
+        <li>
+        <button onClick={() => logout()} className="logoutbtn">Logout</button>
+
+        </li>
+
       </ul>
       </div>
     </div>
