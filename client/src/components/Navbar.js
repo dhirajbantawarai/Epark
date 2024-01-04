@@ -4,7 +4,8 @@ import "../styles/nav.css";
 
 import { useProductContext } from "../context/StoreContext";
 export const Navbar = () => {
-  const { logout } = useProductContext();
+  const { logout, user } = useProductContext();
+  console.log(user);
   const navigate = useNavigate(); // Initialize useNavigate
   return (
     <>
@@ -26,10 +27,15 @@ export const Navbar = () => {
         <li><a>Contact</a></li>
         </NavLink>
 
+      {user!==""?(
         <li>
         <button onClick={() => logout()} className="logoutbtn">Logout</button>
 
         </li>
+      ):""
+      }
+      
+        
 
       </ul>
       </div>
