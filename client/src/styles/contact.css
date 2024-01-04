@@ -5,11 +5,19 @@
   max-width: 400px; /* Set a maximum width for smaller screens */
   margin-bottom: 10px;
   padding: 20px;
-  height: 450px;
-  border: 2px solid #ccc; /* Border styling */
+  height: 600px;
+
+}
+.contactbox{
+  border: 2px solid #111; /* Border styling */
   border-radius: 10px; /* Optional: Add border radius for a rounded look */
   box-sizing: border-box;
+  padding: 2rem;
+  padding-bottom: 3rem;
 }
+
+
+
 .form-group {
   margin-bottom: 20px;
 }
