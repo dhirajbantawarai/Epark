@@ -25,9 +25,10 @@ label {
   margin-bottom: 5px;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+input[type="text"]:required,
+input[type="tel"]:required,
+input[type="email"]:required,
+input[type="password"]:required {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -62,3 +63,10 @@ button[type="submit"] {
     width: 90%; /* Adjust the width for smaller screens */
   }
 }
+
+/* Style for error messages 
+  color: #f00; 
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+*/

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import '../styles/profile.css'; 
-import {useNavigate} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import "../styles/profile.css";
+import { useNavigate } from "react-router-dom";
 import { useProductContext } from "../context/StoreContext";
 
 export const Profile = () => {
@@ -8,29 +8,27 @@ export const Profile = () => {
   const { userid } = useProductContext();
   const navigate = useNavigate();
 
-
-
   useEffect(() => {
-    if(userid === "" || userid === null){
-        navigate('/');
-      }
-      else{
-        
-          const fetchData = async () => {
-            try {
-              const response = await fetch(`http://localhost:9000/api/user/${userid}`);
-              if (!response.ok) {
-                throw new Error('Failed to fetch user data');
-              }
-              const data = await response.json();
-              setUserData(data.user);
-            } catch (error) {
-              console.error('Error:', error.message);
-            }
-          };
-      
-          fetchData();
-      }
+    if (userid === "" || userid === null) {
+      navigate("/");
+    } else {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(
+            `http://localhost:9000/api/user/${userid}`
+          );
+          if (!response.ok) {
+            throw new Error("Failed to fetch user data");
+          }
+          const data = await response.json();
+          setUserData(data.user);
+        } catch (error) {
+          console.error("Error:", error.message);
+        }
+      };
+
+      fetchData();
+    }
   }, []);
 
   const renderTable = () => {
@@ -38,7 +36,7 @@ export const Profile = () => {
       return <p>Loading...</p>;
     }
 
-    const { _id, age, email, phone, username, 'veh-no': vehNo } = userData;
+    const { _id, age, email, phone, username } = userData;
 
     return (
       <div className="table-container">
@@ -77,7 +75,7 @@ export const Profile = () => {
 
   return (
     <div>
-      <h2>User Profile</h2>
+      <h2 style={{ marginTop: "20px" }}>User Profile</h2>
       {renderTable()}
     </div>
   );

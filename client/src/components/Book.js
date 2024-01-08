@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import "../styles/book.css";
 import { useProductContext } from "../context/StoreContext";
 
 
@@ -93,9 +94,12 @@ const Book = () => {
   console.log(user);
 
   return (
-    <div>
+    <>
+ <div className="book-page">
+      <div className="bookbox">
       <h2>Parking Booking Form</h2>
       <form onSubmit={handleSubmit}>
+        <br/>
         <label>
           Name:
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
@@ -144,6 +148,8 @@ const Book = () => {
         <button type="submit">Submit</button>
       </form>
     </div>
+    </div>
+    </>
   );
 };
 

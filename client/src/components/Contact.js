@@ -9,6 +9,7 @@ export const Contact = () => {
 
           <form>
             <div className="form-group">
+              <br/>
               <label htmlFor="name">Name:</label>
 
               <input
