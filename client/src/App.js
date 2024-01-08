@@ -6,10 +6,11 @@ import { Login } from "./components/Login";
 import { Contact } from "./components/Contact";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-import { Aboutus } from "./components/Aboutus";
 import { Parking } from "./components/Parking";
 import { Signup } from "./components/Signup";
 import { AppProvider } from "./context/StoreContext";
+import Book from "./components/Book";
+import { Profile } from "./components/Profile";
 function App() {
   return (
     <>
@@ -20,12 +21,13 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home/>} />
+          <Route path="/book" element={<Book/>} />
           <Route path="/login" element={<Login />}/>
           <Route path="/parking" element={<Parking />}/>
           <Route path="/contact" element={<Contact />}/>
           <Route path="/footer" element={<Footer />}/>
-          <Route path="/aboutus" element={<Aboutus />}/>
           <Route path="/signup" element={<Signup />}/>
+          <Route path="/profile" element={<Profile/>}/>
         </Routes>
         <Footer/>
         </AppProvider>

@@ -3,6 +3,7 @@ const cors = require("cors")
 const express = require("express");
 const { json, urlencoded } = require("express");
 const userrouter = require("./routes/userrouter");
+const bookingrouter = require("./routes/Bookingroutes.js");
 
 
 const app = express();
@@ -20,5 +21,6 @@ app.listen(app.get("PORT"), function (err, done) {
 });
 
 app.use('/api/user', userrouter);
+app.use('/api/booking',  bookingrouter);
 
 //localhost:9000/api/user/6593ce7ec409ca6145cb7f0c    ..get method, postman api url

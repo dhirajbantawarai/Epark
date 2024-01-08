@@ -4,9 +4,13 @@ const bcrypt = require("bcrypt")
 const getusersbyid = async (req,res, next)=>{
     const id = req.params.id;
     let user;
+
+    const projection ={
+        password: 0
+    }
     
     try {
-        user = await User.findOne({_id:id});
+        user = await User.findOne({_id:id},projection);
         //book = await Book.findId(id);
     } catch (error) {
         console.log(error);
@@ -19,6 +23,37 @@ const getusersbyid = async (req,res, next)=>{
 
 };
 
+const createuser = async(req,res)=>{
+    try {
+        // Extract data from the request body
+        const { username, email, password, age, phone } = req.body;
+
+        const hashedpass = await bcrypt.hash(password,10);
+    
+        // Perform any necessary validation on the input data
+    
+        // Here, you would typically hash the password before saving it to the database
+        // For simplicity, I'm assuming you have a User model with a create method
+        const newUser = await User.create({
+          username,
+          email,
+          password: hashedpass, 
+          age,
+          phone// Remember to hash the password before storing it in a production environment
+        });
+    
+        // Respond with the created user
+        res.status(201).json({
+          message: 'User created successfully',
+          user: newUser,
+        });
+      } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({
+          message: 'Internal Server Error',
+        });
+      }
+}
 
 const authenticate = async (req, res, next) => {
     const {username, password} = req.body;
@@ -55,3 +90,4 @@ const authenticate = async (req, res, next) => {
 
 exports.getusersbyid = getusersbyid; 
 exports.authenticate = authenticate;
+exports.createuser = createuser;

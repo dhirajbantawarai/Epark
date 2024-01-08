@@ -15,11 +15,35 @@ export const Navbar = () => {
         </div>
         <div>
           <ul>
-            <NavLink to="/">
+
+            {user!==""?(
+              <>
+              
+            <NavLink to="/profile">
+            <li>
+              <a>Profile</a>
+            </li>
+            </NavLink>
+              <NavLink to="/parking">
+              <li>
+                <a>Book a Spot</a>
+              </li>
+            </NavLink>
+
+
+            </>
+
+            ):(
+              <NavLink to="/">
               <li>
                 <a>Home</a>
               </li>
-            </NavLink>
+              </NavLink>
+
+            )
+
+            }
+            
 
             <NavLink to="/contact">
               <li>

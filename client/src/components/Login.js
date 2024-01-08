@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../styles/login.css";
 import { useProductContext } from "../context/StoreContext";
+import { NavLink } from "react-router-dom";
 
 export const Login = () => {
   const { loginUser } = useProductContext();
@@ -10,7 +11,12 @@ export const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Handle login logic here
-    loginUser(username, password);
+    if (username ==="" && password ==="") {
+      alert("Cannot submit empty fields");
+    }else{
+
+      loginUser(username, password);
+    }
   };
 
   return (
@@ -41,9 +47,12 @@ export const Login = () => {
             <button type="submit" className="btn btn-primary">
               Login
             </button>
-            <a href="#" className="forget-password">
-              Forget password?
-            </a>
+            <NavLink to="/signup">
+
+            <span className="forget-password">
+              Register Now!
+            </span>
+            </NavLink>
           </form>
         </div>
       </div>
