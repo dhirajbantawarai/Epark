@@ -26,7 +26,7 @@ const getusersbyid = async (req,res, next)=>{
 const createuser = async(req,res)=>{
     try {
         // Extract data from the request body
-        const { username, email, password, age, phone } = req.body;
+        const { username, email, password, phone } = req.body;
 
         const hashedpass = await bcrypt.hash(password,10);
     
@@ -38,7 +38,6 @@ const createuser = async(req,res)=>{
           username,
           email,
           password: hashedpass, 
-          age,
           phone// Remember to hash the password before storing it in a production environment
         });
     

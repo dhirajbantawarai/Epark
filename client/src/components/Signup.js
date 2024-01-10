@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/signup.css";
+import {useNavigate } from "react-router-dom";
 
 export const Signup = () => {
   const [username, setUsername] = useState("");
@@ -8,7 +9,9 @@ export const Signup = () => {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (event) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const validationErrors = {};
@@ -28,21 +31,43 @@ export const Signup = () => {
 
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {
-      // Handle signup logic here (e.g., send data to server)
-      console.log(
-        "Username:",
-        username,
-        "Phone",
-        phone,
-        "Email:",
-        email,
-        "Password:",
-        password
-      );
-      // Clear errors after successful signup
-      setErrors({});
-    }
+    
+      try {
+        // Assuming validationErrors is a state variable containing validation errors
+        if (Object.keys(validationErrors).length === 0) {
+          const response = await fetch('http://localhost:9000/api/user/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              // You might need to include additional headers, such as authorization headers
+            },
+            // Assuming you have a requestBody variable with the data to be sent in the request
+            body: JSON.stringify({username,phone,email,password}),
+          });
+
+          if(response.status === 201){
+            const resdata = await response.json();
+            alert(resdata.message);
+            navigate('/login');
+          }
+    
+          if (!response.ok) {
+            // Handle the case where the server returns an error status
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+    
+          // If the request is successful, clear errors
+          setErrors({});
+          
+          // Additional logic after successful signup
+        }
+      } catch (error) {
+        // Handle any errors that occurred during the signup process
+        console.error('Error during signup:', error);
+    
+        // You might want to update the state with the error information
+        setErrors({ signup: 'An error occurred during signup. Please try again.' });
+      }
   };
 
   return (

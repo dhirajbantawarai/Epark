@@ -11,6 +11,7 @@ import { Signup } from "./components/Signup";
 import { AppProvider } from "./context/StoreContext";
 import Book from "./components/Book";
 import { Profile } from "./components/Profile";
+import { Forgot } from "./components/Forgot";
 function App() {
   return (
     <>
@@ -28,6 +29,7 @@ function App() {
           <Route path="/footer" element={<Footer />}/>
           <Route path="/signup" element={<Signup />}/>
           <Route path="/profile" element={<Profile/>}/>
+          <Route path="/forgot" element={<Forgot/>}/>
         </Routes>
         <Footer/>
         </AppProvider>

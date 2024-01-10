@@ -5,16 +5,30 @@ import { NavLink } from 'react-router-dom';
 
 
 
-export const Car = () => {
+export const Car = ({color}) => {
 
   return (
     <>
+    {color ==="red"?(
+      <div className='car disable'>
+      <BsCarFront color={color} size={90}/>
+      </div>
+    ):("")}
+
+    {color ==="grey"?(
+         <div className='car disable'>
+         <BsCarFront color={color} size={90}/>
+     </div>
+    ):("")}
+      
+    {color ==="green"?
     <NavLink to="/book">
     <div className='car'>
-        <BsCarFront color="orange" size={90}/>
+        <BsCarFront color={color} size={90}/>
     </div>
-
     </NavLink>
+    :("")
+    }
     </>
   )
 }
