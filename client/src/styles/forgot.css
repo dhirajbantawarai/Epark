@@ -1,0 +1,44 @@
+/* forgot.css */
+
+.que-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.que-form {
+  max-width: 500px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #111;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input,
+p {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 600px) {
+  .que-form {
+    max-width: 100%;
+  }
+}
