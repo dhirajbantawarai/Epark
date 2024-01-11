@@ -6,7 +6,7 @@ const getusersbyid = async (req,res, next)=>{
     let user;
 
     const projection ={
-        password: 0
+        password: 0,
     }
     
     try {
@@ -23,6 +23,74 @@ const getusersbyid = async (req,res, next)=>{
 
 };
 
+const checkanswer = async (req, res, next) => {
+    const id = req.params.id;
+    const reqanswer = req.body.answer;
+    const password = req.body.password || null;  // Default to null if password is not provided
+
+    try {
+        const user = await User.findOne({ _id: id }, { answer: 1 });
+
+        if (!user) {
+            return res.status(404).json({ message: "No user found" });
+        }
+
+        if (!password || password.length < 4) {
+            return res.status(400).json({ message: "Password is required and must be at least 4 characters long" });
+        }
+
+        if (!reqanswer) {
+            return res.status(401).json({ message: "Answer is required" });
+        }
+
+        if (user.answer === reqanswer) {
+            let updateFields = {
+                password,
+            };
+
+            const hashedPassword = await bcrypt.hash(password, 10);
+            updateFields.password = hashedPassword;
+
+            const updatedUser = await User.findOneAndUpdate(
+                { _id: id },
+                updateFields,
+                { new: true, runValidators: true }
+            );
+
+            if (updatedUser) {
+                return res.status(200).json({ message: "Successfully Changed Password" });
+            }
+        } else {
+            return res.status(401).json({ message: "Answer Not Matched" });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+const getusersbymail = async (req,res, next)=>{
+    const mail = req.params.mail;
+    let user;
+
+    const projection ={
+        password: 0,
+        answer:0
+    }
+    
+    try {
+        user = await User.findOne({email:mail},projection);
+        //book = await Book.findId(id);
+    } catch (error) {
+        console.log(error);
+    }
+
+    if(!user){
+        return res.status(404).json({message:"no user found"});
+    }
+    return res.status(200).json({user:user});
+
+};
 const createuser = async(req,res)=>{
     try {
         // Extract data from the request body
@@ -90,3 +158,5 @@ const authenticate = async (req, res, next) => {
 exports.getusersbyid = getusersbyid; 
 exports.authenticate = authenticate;
 exports.createuser = createuser;
+exports.getusersbymail = getusersbymail;
+exports.checkanswer = checkanswer;

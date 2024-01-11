@@ -20,7 +20,13 @@ const UserSchema = new Schema(
             required: true
         },
         age:{
-            type: Number
+            type: Number,
+        },
+        question:{
+            type: String,
+        },
+        answer:{
+            type: String,
         }
     },{ versionKey: false }
 );
