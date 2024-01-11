@@ -1,12 +1,15 @@
+// Signup.js
+
 import React, { useState } from "react";
 import "../styles/signup.css";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const Signup = () => {
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [favoriteFood, setFavoriteFood] = useState("");
   const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
@@ -28,46 +31,54 @@ export const Signup = () => {
     if (!password) {
       validationErrors.password = "Password is required";
     }
+    if (!favoriteFood) {
+      validationErrors.favoriteFood = "Favorite food is required";
+    }
 
     setErrors(validationErrors);
 
-    
-      try {
-        // Assuming validationErrors is a state variable containing validation errors
-        if (Object.keys(validationErrors).length === 0) {
-          const response = await fetch('http://localhost:9000/api/user/', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              // You might need to include additional headers, such as authorization headers
-            },
-            // Assuming you have a requestBody variable with the data to be sent in the request
-            body: JSON.stringify({username,phone,email,password}),
-          });
+    try {
+      if (Object.keys(validationErrors).length === 0) {
+        const response = await fetch("http://localhost:9000/api/user/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            // You might need to include additional headers, such as authorization headers
+          },
+          body: JSON.stringify({
+            username,
+            phone,
+            email,
+            password,
+            favoriteFood,
+          }),
+        });
 
-          if(response.status === 201){
-            const resdata = await response.json();
-            alert(resdata.message);
-            navigate('/login');
-          }
-    
-          if (!response.ok) {
-            // Handle the case where the server returns an error status
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-    
-          // If the request is successful, clear errors
-          setErrors({});
-          
-          // Additional logic after successful signup
+        if (response.status === 201) {
+          const resdata = await response.json();
+          alert(resdata.message);
+          navigate("/login");
         }
-      } catch (error) {
-        // Handle any errors that occurred during the signup process
-        console.error('Error during signup:', error);
-    
-        // You might want to update the state with the error information
-        setErrors({ signup: 'An error occurred during signup. Please try again.' });
+
+        if (!response.ok) {
+          // Handle the case where the server returns an error status
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        // If the request is successful, clear errors
+        setErrors({});
+
+        // Additional logic after successful signup
       }
+    } catch (error) {
+      // Handle any errors that occurred during the signup process
+      console.error("Error during signup:", error);
+
+      // You might want to update the state with the error information
+      setErrors({
+        signup: "An error occurred during signup. Please try again.",
+      });
+    }
   };
 
   return (
@@ -86,7 +97,9 @@ export const Signup = () => {
                 onChange={(e) => setUsername(e.target.value)}
                 required
               />
-              {errors.username && <p className="error">{errors.username}</p>}
+              {errors.username && (
+                <p className="error">{errors.username}</p>
+              )}
             </div>
 
             <div className="form-group">
@@ -123,6 +136,20 @@ export const Signup = () => {
                 required
               />
               {errors.password && <p className="error">{errors.password}</p>}
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="favoriteFood">Favorite Food:</label>
+              <input
+                type="text"
+                id="favoriteFood"
+                value={favoriteFood}
+                onChange={(e) => setFavoriteFood(e.target.value)}
+                required
+              />
+              {errors.favoriteFood && (
+                <p className="error">{errors.favoriteFood}</p>
+              )}
             </div>
 
             <button type="submit" className="btn btn-primary">
