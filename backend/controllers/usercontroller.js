@@ -1,6 +1,44 @@
 const User = require("../models/User");//import user model
 const bcrypt = require("bcrypt")
 
+const updateUser = async (req, res) => {
+    try {
+      const userId = req.params.id; // Assuming the user ID is passed as a URL parameter
+  
+      // Find the user by ID
+      const user = await User.findById(userId);
+  
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      const updatedfields ={
+
+      }
+      // Update the user properties
+      if (req.body.email) updatedfields.email = req.body.email;
+      if (req.body.phone) updatedfields.phone = req.body.phone;
+      if (req.body.question) updatedfields.question = req.body.question;
+      if (req.body.username) updatedfields.username = req.body.username;
+      if (req.body.answer) updatedfields.answer = req.body.answer;
+      // Save the updated user
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: userId },
+        updatedfields,
+        { new: true, runValidators: true }
+    );
+
+    if(updatedUser){
+
+        res.json({ message: 'User updated successfully', user });
+    }
+  
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+  
+
 const getusersbyid = async (req,res, next)=>{
     const id = req.params.id;
     let user;
@@ -68,6 +106,8 @@ const checkanswer = async (req, res, next) => {
         return res.status(500).json({ message: "Internal Server Error" });
     }
 };
+
+
 
 const getusersbymail = async (req,res, next)=>{
     const mail = req.params.mail;
@@ -160,3 +200,4 @@ exports.authenticate = authenticate;
 exports.createuser = createuser;
 exports.getusersbymail = getusersbymail;
 exports.checkanswer = checkanswer;
+exports.updateUser = updateUser;

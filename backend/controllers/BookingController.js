@@ -1,8 +1,9 @@
 const Booking = require("../models/Booking");
+const Spot = require("../models/Spots");
 
 const postBooking =  async (req,res)=>{
     try {
-        const { name, vehicleNumber, startDate, startTime, endTime } = req.body;
+        const { name, vehicleNumber, startDate, startTime, endTime, id } = req.body;
     
         // Validate input data (you can add more validation as needed)
     
@@ -13,8 +14,18 @@ const postBooking =  async (req,res)=>{
           startDate,
           startTime,
           endTime,
+          spotid:id
         });
-    
+        
+        const updatefields = {
+          status: "Booked",
+        }
+
+        const spot = await Spot.findOneAndUpdate(
+          {_id:id},
+          updatefields,
+          { new: true, runValidators: true }
+          );
         // Save the new booking to the database
         const savedBooking = await newBooking.save();
     
@@ -24,5 +35,6 @@ const postBooking =  async (req,res)=>{
         res.status(500).json({ message: 'Internal Server Error, please try again later' });
       }
 }
+
 
 exports.postBooking = postBooking;

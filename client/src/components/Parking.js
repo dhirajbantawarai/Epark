@@ -26,7 +26,7 @@ export const Parking = () => {
             throw new Error("Failed to fetch user data");
           }
           const data = await response.json();
-          setSpot(data.spot);
+          setSpot(data.spots);
           
         } catch (error) {
           console.error("Error:", error.message);
@@ -35,35 +35,41 @@ export const Parking = () => {
 
       fetchSpot();
     }
-  }, []);
+  }, [user, userid]);
 
   if(userid !==""){
+
+    if(Spot){
+
+      return (
+        <>
+        <div className='parking-container'>
+            <div className='grid grid-six column'>
     
-    return (
-      <>
-      <div className='parking-container'>
-          <div className='grid grid-six column'>
-  
-          {(() => {
-          const carComponents = [];
-          for (let index = 0; index < (Spot ? Spot.length : 0); index++) {
-            let color;
-              if (Spot[index].status === "Available") {
-                color = "green";
-              } else if (Spot[index].status === "Booked") {
-                color = "red";
-              } else if (Spot[index].status === "Reserved") {
-                color = "grey";
-              }
-            carComponents.push(<Car key={Spot[index]._id} color={color} />);
-          }
-          return carComponents;
-          })()}
-              
-          </div>
-      </div>
-      </>
-    )
+            {(() => {
+            const carComponents = [];
+            for (let index = 0; index < (Spot ? Spot.length : 0); index++) {
+              let color;
+                if (Spot[index].status === "Available") {
+                  color = "green";
+                } else if (Spot[index].status === "Booked") {
+                  color = "red";
+                } else if (Spot[index].status === "Reserved") {
+                  color = "grey";
+                }
+              carComponents.push(<Car key={Spot[index]._id} id={Spot[index]._id}color={color} />);
+            }
+            return carComponents;
+            })()}
+                
+            </div>
+        </div>
+        </>
+      )
+    }else{
+      return (<><br></br><br></br><h1>Loading</h1></>);
+    }
+    
   }else if(userid===""){
     return <h1>Please <a href="/login">Login</a></h1>
   }

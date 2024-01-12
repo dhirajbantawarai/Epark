@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 
 
-export const Car = ({color}) => {
+export const Car = ({color, id}) => {
 
   return (
     <>
@@ -22,7 +22,7 @@ export const Car = ({color}) => {
     ):("")}
       
     {color ==="green"?
-    <NavLink to="/book">
+    <NavLink to={`/book/${id}`} id={id} >
     <div className='car'>
         <BsCarFront color={color} size={90}/>
     </div>

@@ -23,6 +23,11 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  spotid: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Spot', // Reference to the 'Spot' model
+    required: true, // Optional: specify if it's required or not
+  },
 }, { versionKey: false });
 
 const BookingModel = mongoose.model('Booking', bookingSchema);

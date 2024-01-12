@@ -27,9 +27,39 @@ const AppProvider = ({ children }) => {
 
   // my 2nd api call for single product
 
+
+  const getcookie=(name)=>{
+    const cookies = document.cookie.split('; ');
+    for (const cookie of cookies) {
+      const [cookieName, cookieValue] = cookie.split('=');
+      if (cookieName === name) {
+        return cookieValue;
+      }
+    }
+    return null;
+  }
+  function removeCookie(name) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  }
+
+  useEffect(()=>{
+    const username = getcookie('userid');
+    const userid = getcookie('userid');
+
+    if(username && userid){
+      dispatch({ type: "SET_USER", payload: {
+        username:username,userid:userid
+    } });
+    navigate('/parking');
+    }
+  },[]);
+
   const logout = () => {
     dispatch({ type: "SET_USER", payload: { username: "", userid: "" } });
+    removeCookie('username');
+    removeCookie('userid');
     navigate('/');
+    
   };
   const handleLoginSuccess = (userData) => {
     const username = userData.username;
@@ -63,6 +93,16 @@ const AppProvider = ({ children }) => {
       if (userData) {
         // Update the user and userid in the state upon successful login
         handleLoginSuccess(userData);
+        const expirationDate = new Date();
+        expirationDate.setDate(expirationDate.getDate() + 1);
+
+        // Format the expiration date in the required UTC string format
+        const expiresUTC = expirationDate.toUTCString();
+        const username = userData.username;
+        const userid = userData.userid;
+        // Set the cookie with an expiration date
+        document.cookie = `username=${username}; expires=${expiresUTC}; path=/`;
+        document.cookie = `userid=${userid}; expires=${expiresUTC}; path=/`;
         //window.location.href = 'http://localhost:3000/parking';
       } else {
         window.alert('Server error: Try again Later');
@@ -70,6 +110,7 @@ const AppProvider = ({ children }) => {
 
     } catch (error) {
       console.error('Error during login:', error.message);
+     alert('Error during login:', error.message);
     }
   };
 

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import "../styles/book.css";
 import { useProductContext } from "../context/StoreContext";
-
+import { useParams } from 'react-router-dom';
 
 const Book = () => {
-
+    const {id} = useParams();
     //api end point localhost:9000/api/booking/
     const {user } = useProductContext();
     const navigate = useNavigate(); // Initialize useNavigate
@@ -60,6 +60,7 @@ const Book = () => {
           startDate,
           startTime,
           endTime,
+          id
         });
   
         // Make the POST request to your API
@@ -101,6 +102,11 @@ const Book = () => {
       <form onSubmit={handleSubmit}>
         <br/>
         <label>
+          Spot Id:
+          <input type="text" value={id} required />
+        </label>
+        <br />
+        <label>
           Name:
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
         </label>
@@ -122,7 +128,7 @@ const Book = () => {
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
             min={getCurrentDate()}
-            max={getNextDate()}
+            max={getCurrentDate()}
             required
           />
         </label>
