@@ -1,14 +1,13 @@
 .table-container {
-  margin: 0 auto;
-  margin-top: 50px;
-  width: 80%; /* Adjust the width as needed */
+  margin-top: 10px;
   margin-bottom: 10px;
   padding: 20px;
-  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .user-table {
-  width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 }
@@ -20,22 +19,19 @@
   text-align: left;
 }
 
-.user-table th {
-  background-color: #f2f2f2;
-}
-
 /* Button styling */
-.user-table td button {
+.user-table button {
   padding: 8px;
   cursor: pointer;
   background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 4px;
+  margin-left: 10px; /* Add margin to move the button towards the right */
 }
 
 /* Hover effect for better interactivity */
-.user-table td button:hover {
+.user-table button:hover {
   background-color: #111;
 }
 
