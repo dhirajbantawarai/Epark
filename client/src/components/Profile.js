@@ -88,9 +88,10 @@ export const Profile = () => {
     }
     
 
-    const { _id, age, email, phone, username, answer, question } = userData;
+    const { _id, email, phone, username, answer, question } = userData;
 
     return (
+      <>
       <div className="table-container">
         <table className="user-table">
           <thead>
@@ -113,9 +114,9 @@ export const Profile = () => {
               <td>{email}</td>
               <td>{phone}</td>
               <td>{answer}</td><td>{question}</td>
-              <td>
+          
                 <button onClick={() => handleEdit(_id)}>Edit</button>
-              </td>
+              
             </tr>
               ):
               (
@@ -134,11 +135,11 @@ export const Profile = () => {
 
                   ))
                 }
-                <td>
+                
                   <button onClick={()=>handlesave()}>Save</button>
                   <br></br><br></br>
                   <button onClick={()=>handlecancel()}>Cancel</button>
-                </td>
+             
               </tr>
                 
 
@@ -147,6 +148,7 @@ export const Profile = () => {
           </tbody>
         </table>
       </div>
+      </>
     );
   };
 
