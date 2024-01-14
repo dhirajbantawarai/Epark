@@ -50,5 +50,70 @@ const getallspot =  async (req,res)=>{
         res.status(500).json({ message: 'Internal Server Error, please try again later' });
       }
 }
+const deletespot = async (req, res) => {
+  try {
+    const spotIdToDelete = req.params.id;
+
+    // Add logic to delete the spot by ID
+    const deletedSpot = await Spot.findByIdAndDelete(spotIdToDelete);
+
+    if (!deletedSpot) {
+      return res.status(404).json({ message: "Spot not found" });
+    }
+
+    return res.status(200).json({ message: "Spot deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Internal Server Error, please try again later",
+    });
+  }
+};
+
+const createspot = async (req, res) => {
+  try {
+    const {price, status} = req.body;
+
+    // Add logic to create a new spot
+    const newSpot = await Spot.create({
+      price,
+      status
+    });
+
+    return res.status(201).json({ message: "Spot created successfully", newSpot });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Internal Server Error, please try again later",
+    });
+  }
+};
+const editspot = async (req, res) => {
+  try {
+    const spotIdToEdit = req.params.id;
+    let {price, status} = req.body;
+    price = Number(price);
+    // Add logic to edit the spot by ID
+    const updatedSpot = await Spot.findByIdAndUpdate(
+      spotIdToEdit,
+      { price, status },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedSpot) {
+      return res.status(404).json({ message: "Spot not found" });
+    }
+
+    return res.status(200).json({ message: "Spot edited successfully", updatedSpot });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Internal Server Error, please try again later",
+    });
+  }
+};
 
 exports.getallspot = getallspot;
+exports.deleteSpot = deletespot;
+exports.createspot = createspot;
+exports.editspot = editspot;

@@ -8,5 +8,6 @@ userrouter.post("/",usersController.createuser);
 userrouter.post("/login",usersController.authenticate);
 userrouter.get("/mail/:mail",usersController.getusersbymail);
 userrouter.post("/answer/:id",usersController.checkanswer);
+userrouter.delete("/:id",usersController.deleteUserById);
 
 module.exports = userrouter;

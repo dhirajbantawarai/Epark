@@ -86,6 +86,7 @@ export const Profile = () => {
     if (!userData) {
       return <p>Loading...</p>;
     }
+    
 
     const { _id, age, email, phone, username, answer, question } = userData;
 
@@ -123,7 +124,7 @@ export const Profile = () => {
                   Object.entries(userData).map(([key,value]) => (
                   <td>
                   {
-                    key==="_id"? <span>{_id}</span>:(
+                    key==="_id" || key ==="question"? <span>{value}</span>:(
                     <input type="text" name={key} value={userData[key] !== undefined ? userData[key] : value}
                     onChange={(e) => handleInputChange(key, e.target.value)}
                     />)

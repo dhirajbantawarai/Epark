@@ -28,6 +28,9 @@ const bookingSchema = new mongoose.Schema({
     ref: 'Spot', // Reference to the 'Spot' model
     required: true, // Optional: specify if it's required or not
   },
+  totalprice:{
+    type:Number
+  }
 }, { versionKey: false });
 
 const BookingModel = mongoose.model('Booking', bookingSchema);

@@ -4,7 +4,7 @@
 }
 
 .car:hover{
-    background-color: rgb(231, 232, 218);
+    background-color: rgb(203, 203, 201);
     cursor: pointer;
     border-radius: 5px;
 }

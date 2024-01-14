@@ -9,7 +9,7 @@ export const Signup = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [favoriteFood, setFavoriteFood] = useState("");
+  const [answer, setanswer] = useState("");
   const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
@@ -31,8 +31,8 @@ export const Signup = () => {
     if (!password) {
       validationErrors.password = "Password is required";
     }
-    if (!favoriteFood) {
-      validationErrors.favoriteFood = "Favorite food is required";
+    if (!answer) {
+      validationErrors.answer = "Favorite food is required";
     }
 
     setErrors(validationErrors);
@@ -50,7 +50,8 @@ export const Signup = () => {
             phone,
             email,
             password,
-            favoriteFood,
+            question:"Favourite Food",
+            answer,
           }),
         });
 
@@ -139,16 +140,16 @@ export const Signup = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="favoriteFood">Favorite Food:</label>
+              <label htmlFor="answer">Favorite Food:</label>
               <input
                 type="text"
-                id="favoriteFood"
-                value={favoriteFood}
-                onChange={(e) => setFavoriteFood(e.target.value)}
+                id="answer"
+                value={answer}
+                onChange={(e) => setanswer(e.target.value)}
                 required
               />
-              {errors.favoriteFood && (
-                <p className="error">{errors.favoriteFood}</p>
+              {errors.answer && (
+                <p className="error">{errors.answer}</p>
               )}
             </div>
 

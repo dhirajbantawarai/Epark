@@ -193,6 +193,23 @@ const authenticate = async (req, res, next) => {
     
 }
 
+const deleteUserById = async (req,res) => {
+    const userId = req.params.id;
+    try {
+      // Use Mongoose's findOneAndDelete to find and delete the user by ID
+      const deletedUser = await User.findOneAndDelete({ _id: userId });
+  
+      if (deletedUser) {
+        return res.status(201).json({ message: "User Deleted", deletedUser });
+      } else {
+        return res.status(404).json({ message: 'User not found' })
+      }
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  };
+  
+
 
 
 exports.getusersbyid = getusersbyid; 
@@ -201,3 +218,4 @@ exports.createuser = createuser;
 exports.getusersbymail = getusersbymail;
 exports.checkanswer = checkanswer;
 exports.updateUser = updateUser;
+exports.deleteUserById = deleteUserById;
