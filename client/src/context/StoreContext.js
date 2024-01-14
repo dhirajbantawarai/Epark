@@ -25,7 +25,7 @@ const AppProvider = ({ children }) => {
     // }
   };
 
-  // my 2nd api call for single product
+
 
 
   const getcookie=(name)=>{
