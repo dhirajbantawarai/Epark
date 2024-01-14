@@ -4,7 +4,9 @@ import "../styles/book.css";
 import { useProductContext } from "../context/StoreContext";
 import { useParams } from 'react-router-dom';
 
-const Book = () => {
+const Book = ({}) => {
+  const price = parseFloat(new URLSearchParams(window.location.search).get('price'));
+  console.log(price);
     const {id} = useParams();
     //api end point localhost:9000/api/booking/
     const {user } = useProductContext();
@@ -60,7 +62,9 @@ const Book = () => {
           startDate,
           startTime,
           endTime,
-          id
+          id,
+          spotid:id,
+          spotprice:price
         });
   
         // Make the POST request to your API

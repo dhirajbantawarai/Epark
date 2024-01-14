@@ -57,7 +57,7 @@ export const Parking = () => {
                 } else if (Spot[index].status === "Reserved") {
                   color = "grey";
                 }
-              carComponents.push(<Car key={Spot[index]._id} id={Spot[index]._id}color={color} />);
+              carComponents.push(<Car key={Spot[index]._id} id={Spot[index]._id} price={Spot[index].price}color={color} />);
             }
             return carComponents;
             })()}
