@@ -1,73 +1,82 @@
 const Booking = require("../models/Booking");
 const Spot = require("../models/Spots");
 
-const postBooking =  async (req,res)=>{
-    try {
-        const { name, vehicleNumber, startDate, startTime, endTime, id, spotprice, spotid } = req.body;
-    
-        // Validate input data (you can add more validation as needed)
-        //endtime("11:30 ") - starttime(12:30) * price
-        //split the hours subtract end hour - start hour
-        //convert result hours into minutes -> minutehours
-        //split the minutes end minutes- start minutes
-        //add minutehours + all minutes
+const postBooking = async (req, res) => {
+  try {
+    const {
+      name,
+      vehicleNumber,
+      startDate,
+      startTime,
+      endTime,
+      id,
+      spotprice,
+      spotid,
+    } = req.body;
 
-        const perminuteprice = spotprice/60;
+    // Validate input data (you can add more validation as needed)
+    //endtime("11:30 ") - starttime(12:30) * price
+    //split the hours subtract end hour - start hour
+    //convert result hours into minutes -> minutehours
+    //split the minutes end minutes- start minutes
+    //add minutehours + all minutes
 
-        const starthour = startTime.split(":")[0];
-        const endhour = endTime.split(":")[0];
-        const startminutes = startTime.split(":")[1];
-        const endminutes = endTime.split(":")[1];
+    const perminuteprice = spotprice / 60;
 
-        const totalhours = endhour - starthour;
-        const minutes = totalhours * 60;
-        const totalminutes = (endminutes - startminutes) + minutes;
+    const starthour = startTime.split(":")[0];
+    const endhour = endTime.split(":")[0];
+    const startminutes = startTime.split(":")[1];
+    const endminutes = endTime.split(":")[1];
 
-        let totalprice = 10;
+    const totalhours = endhour - starthour;
+    const minutes = totalhours * 60;
+    const totalminutes = endminutes - startminutes + minutes;
 
-        if(totalminutes>60){
-          totalprice = perminuteprice * totalminutes; 
-        }else{
-          totalprice = 10;
-        }
+    let totalprice = 10;
 
-        if (totalprice < 0) {
-      
-          totalprice =  Math.ceil(totalprice);
-        } else {
-         
-          totalprice=  totalprice % 1 < 0.5 ? Math.floor(totalprice) : Math.ceil(totalprice);
-        }
+    if (totalminutes > 60) {
+      totalprice = perminuteprice * totalminutes;
+    } else {
+      totalprice = 10;
+    }
 
-        // Create a new Booking instance
-        const newBooking = await new Booking({
-          name,
-          vehicleNumber,
-          startDate,
-          startTime,
-          endTime,
-          spotid,
-          totalprice
-        });
-        
-        const updatefields = {
-          status: "Booked",
-        }
+    if (totalprice < 0) {
+      totalprice = Math.ceil(totalprice);
+    } else {
+      totalprice =
+        totalprice % 1 < 0.5 ? Math.floor(totalprice) : Math.ceil(totalprice);
+    }
 
-        const spot = await Spot.findOneAndUpdate(
-          {_id:id},
-          updatefields,
-          { new: true, runValidators: true }
-          );
-        // Save the new booking to the database
-        const savedBooking = await newBooking.save();
-    
-        res.status(201).json({message: "Succesfully Booked"});
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal Server Error, please try again later' });
-      }
-}
+    // Create a new Booking instance
+    const newBooking = await new Booking({
+      name,
+      vehicleNumber,
+      startDate,
+      startTime,
+      endTime,
+      spotid,
+      totalprice,
+    });
+
+    const updatefields = {
+      status: "Booked",
+    };
+
+    const spot = await Spot.findOneAndUpdate({ _id: id }, updatefields, {
+      new: true,
+      runValidators: true,
+    });
+    // Save the new booking to the database
+    const savedBooking = await newBooking.save();
+
+    res.status(201).json({ message: "Succesfully Booked" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Internal Server Error, please try again later" });
+  }
+};
 
 const deletebooking = async (req, res) => {
   try {
@@ -97,17 +106,21 @@ const editBooking = async (req, res) => {
       startDate,
       startTime,
       endTime,
-      spotid,totalprice} = req.body;;
+      spotid,
+      totalprice,
+    } = req.body;
     // Add logic to edit the spot by ID
     const updatedSpot = await Booking.findByIdAndUpdate(
       Bookingtoedit,
-      { name,
+      {
+        name,
         vehicleNumber,
         startDate,
         startTime,
         endTime,
         spotid,
-        totalprice},
+        totalprice,
+      },
       { new: true, runValidators: true }
     );
 
@@ -115,7 +128,9 @@ const editBooking = async (req, res) => {
       return res.status(404).json({ message: "Spot not found" });
     }
 
-    return res.status(200).json({ message: "Spot edited successfully", updatedSpot });
+    return res
+      .status(200)
+      .json({ message: "Spot edited successfully", updatedSpot });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -131,13 +146,12 @@ const getbookingByPage = async (req, res, next) => {
     const bookings = await Booking.find()
       .skip((page - 1) * limit)
       .limit(limit);
-    return res.status(200).json({bookings });
+    return res.status(200).json({ bookings });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
 
 exports.deletebooking = deletebooking;
 exports.getbookingByPage = getbookingByPage;
