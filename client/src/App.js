@@ -1,5 +1,5 @@
 import React from "react";
-
+import '@fortawesome/fontawesome-svg-core/styles.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Home } from "./components/Home";
 import { Login } from "./components/Login";
@@ -12,6 +12,9 @@ import { AppProvider } from "./context/StoreContext";
 import Book from "./components/Book";
 import { Profile } from "./components/Profile";
 import { Forgot } from "./components/Forgot";
+import { Admin } from "./components/Admin/Admin";
+import { ManageBooking } from "./components/Admin/ManageBooking";
+import { ManageUsers } from "./components/Admin/ManageUsers";
 function App() {
   return (
     <>
@@ -30,6 +33,9 @@ function App() {
           <Route path="/signup" element={<Signup />}/>
           <Route path="/profile" element={<Profile/>}/>
           <Route path="/forgot" element={<Forgot/>}/>
+          <Route path="/admin" element={<Admin/>}/>
+          <Route path="/manageusers" element={<ManageUsers/>}/>
+          <Route path="/managebooking" element={<ManageBooking/>}/>
         </Routes>
         <Footer/>
         </AppProvider>

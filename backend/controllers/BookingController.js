@@ -144,8 +144,8 @@ const getbookingByPage = async (req, res, next) => {
 
   try {
     const bookings = await Booking.find()
-      .skip((page - 1) * limit)
-      .limit(limit);
+      // .skip((page - 1) * limit)
+      // .limit(limit);
     return res.status(200).json({ bookings });
   } catch (err) {
     console.error(err);
