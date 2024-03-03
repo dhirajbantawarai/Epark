@@ -202,6 +202,29 @@ const deleteUserById = async (req, res) => {
   }
 };
 
+const getAllUsers = async (req, res, next) => {
+  let users;
+
+  const projection = {
+    password: 0,
+  };
+
+  try {
+    users = await User.find({}, projection);
+    // You may perform additional actions or validations here
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+
+  if (!users || users.length === 0) {
+    return res.status(404).json({ message: "No users found" });
+  }
+
+  return res.status(200).json({ users: users });
+};
+
+
 exports.getusersbyid = getusersbyid;
 exports.authenticate = authenticate;
 exports.createuser = createuser;
@@ -209,3 +232,4 @@ exports.getusersbymail = getusersbymail;
 exports.checkanswer = checkanswer;
 exports.updateUser = updateUser;
 exports.deleteUserById = deleteUserById;
+exports.getAllUsers = getAllUsers;

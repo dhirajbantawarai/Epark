@@ -5,5 +5,5 @@ const dbURL = 'mongodb+srv://kabishbrt:epark@cluster0.j7qlgov.mongodb.net/epark?
 mongoose.connect(dbURL).then(() => {
   console.log('DB connected!');
 }).catch((err) => {
-  console.error('Db connection failed - ', err);
+  console.error('Db connection failed- ', err);
 }); 

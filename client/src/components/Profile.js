@@ -17,7 +17,7 @@ export const Profile = () => {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            `http://localhost:9000/api/user/${userid}`
+            `http://localhost:9000/api/user/id/${userid}`
           );
           if (!response.ok) {
             throw new Error("Failed to fetch user data");
@@ -39,7 +39,7 @@ export const Profile = () => {
   const handlesave =async()=>{
 
     try {
-      const response = await fetch(`http://localhost:9000/api/user/${userid}`, {
+      const response = await fetch(`http://localhost:9000/api/user/id/${userid}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ export const Profile = () => {
         alert("Profile Updated");
         const fetchUserDetails = async () => {
           try {
-            const response = await fetch(`http://localhost:9000/api/user/${userid}`);
+            const response = await fetch(`http://localhost:9000/api/user/id/${userid}`);
             const data = await response.json();
             setUserData(data.user);
           } catch (error) {
