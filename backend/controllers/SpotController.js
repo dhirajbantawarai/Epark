@@ -2,7 +2,6 @@ const Spot = require("../models/Spots");
 const Booking = require("../models/Booking");
 const { mongoose } = require("mongoose");
 
-
 const getallspot =  async (req,res)=>{
     try {
     

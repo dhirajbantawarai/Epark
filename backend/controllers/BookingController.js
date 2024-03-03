@@ -13,7 +13,6 @@ const postBooking = async (req, res) => {
       spotprice,
       spotid,
     } = req.body;
-
     // Validate input data (you can add more validation as needed)
     //endtime("11:30 ") - starttime(12:30) * price
     //split the hours subtract end hour - start hour
@@ -22,12 +21,10 @@ const postBooking = async (req, res) => {
     //add minutehours + all minutes
 
     const perminuteprice = spotprice / 60;
-
     const starthour = startTime.split(":")[0];
     const endhour = endTime.split(":")[0];
     const startminutes = startTime.split(":")[1];
     const endminutes = endTime.split(":")[1];
-
     const totalhours = endhour - starthour;
     const minutes = totalhours * 60;
     const totalminutes = endminutes - startminutes + minutes;
