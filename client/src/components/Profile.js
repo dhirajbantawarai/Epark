@@ -5,7 +5,7 @@ import { useProductContext } from "../context/StoreContext";
 
 export const Profile = () => {
   const [userData, setUserData] = useState(null);
-  
+
   const [isEditMode, setEditMode] = useState(false);
   const { userid } = useProductContext();
   const navigate = useNavigate();
@@ -32,30 +32,34 @@ export const Profile = () => {
       fetchData();
     }
   }, []);
-  const handlecancel =()=>{
+  const handlecancel = () => {
     setEditMode(false);
-  }
+  };
 
-  const handlesave =async()=>{
-
+  const handlesave = async () => {
     try {
-      const response = await fetch(`http://localhost:9000/api/user/id/${userid}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        `http://localhost:9000/api/user/id/${userid}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
 
       if (response.ok) {
         alert("Profile Updated");
         const fetchUserDetails = async () => {
           try {
-            const response = await fetch(`http://localhost:9000/api/user/id/${userid}`);
+            const response = await fetch(
+              `http://localhost:9000/api/user/id/${userid}`
+            );
             const data = await response.json();
             setUserData(data.user);
           } catch (error) {
-            alert('Error fetching user details:'+error);
+            alert("Error fetching user details:" + error);
             // Handle error (show alert, redirect, etc.)
           }
         };
@@ -65,19 +69,18 @@ export const Profile = () => {
         setEditMode(false);
       } else if (!response.ok) {
         const responseData = await response.json();
-        
+
         // Display the error message in an alert
-        alert('Cannot update: ' + responseData.message);
+        alert("Cannot update: " + responseData.message);
       }
     } catch (error) {
-      alert('Error updating user details:'+error);
+      alert("Error updating user details:" + error);
       // Handle other types of errors (e.g., network issues)
       // You might want to show an alert or perform other error handling here
     }
 
-    
     setEditMode(false);
-  }
+  };
   const handleInputChange = (key, value) => {
     setUserData((prevData) => ({ ...prevData, [key]: value }));
   };
@@ -86,68 +89,65 @@ export const Profile = () => {
     if (!userData) {
       return <p>Loading...</p>;
     }
-    
 
     const { _id, email, phone, username, answer, question } = userData;
 
     return (
       <>
-      <div className="table-container">
-        <table className="user-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>User</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Security Answer</th>
-              <th>Security Question</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              isEditMode===false?(
-
-            <tr>
-              <td>{_id}</td>
-              <td>{username}</td>
-              <td>{email}</td>
-              <td>{phone}</td>
-              <td>{answer}</td><td>{question}</td>
-          
-                <button onClick={() => handleEdit(_id)}>Edit</button>
-              
-            </tr>
-              ):
-              (
-                <tr>
-                {
-                  Object.entries(userData).map(([key,value]) => (
-                  <td>
-                  {
-                    key==="_id" || key ==="question"? <span>{value}</span>:(
-                    <input type="text" name={key} value={userData[key] !== undefined ? userData[key] : value}
-                    onChange={(e) => handleInputChange(key, e.target.value)}
-                    />)
-                  }
-
-                  </td>
-
-                  ))
-                }
-                
-                  <button onClick={()=>handlesave()}>Save</button>
-                  <br></br><br></br>
-                  <button onClick={()=>handlecancel()}>Cancel</button>
-             
+        <div className="table-container">
+          <table className="user-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Security Answer</th>
+                <th>Security Question</th>
               </tr>
-                
+            </thead>
+            <tbody>
+              {isEditMode === false ? (
+                <tr>
+                  <td>{_id}</td>
+                  <td>{username}</td>
+                  <td>{email}</td>
+                  <td>{phone}</td>
+                  <td>{answer}</td>
+                  <td>{question}</td>
 
-              )
-            }
-          </tbody>
-        </table>
-      </div>
+                  <button onClick={() => handleEdit(_id)}>Edit</button>
+                </tr>
+              ) : (
+                <tr>
+                  {Object.entries(userData).map(([key, value]) => (
+                    <td>
+                      {key === "_id" || key === "question" ? (
+                        <span>{value}</span>
+                      ) : (
+                        <input
+                          type="text"
+                          name={key}
+                          value={
+                            userData[key] !== undefined ? userData[key] : value
+                          }
+                          onChange={(e) =>
+                            handleInputChange(key, e.target.value)
+                          }
+                        />
+                      )}
+                    </td>
+                  ))}
+
+                  <button onClick={() => handlesave()}>Save</button>
+                  <br></br>
+                  <br></br>
+                  <button onClick={() => handlecancel()}>Cancel</button>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </>
     );
   };
